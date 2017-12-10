@@ -17,25 +17,42 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 				
 		http
+		.formLogin()
+        .loginPage("/login")
+        .failureUrl("/login-error")
+    .and()
+        .logout()
+        .logoutSuccessUrl("/home")
+    .and()
+        .authorizeRequests()
+        .antMatchers("/", "/home").permitAll()
+        .antMatchers("/hello").access("hasRole('ROLE_ADMIN')")
+        .antMatchers("/time").access("hasRole('ROLE_USER')")
+     .and()
+        .exceptionHandling()
+        .accessDeniedPage("/403.html");
+		/*
         .authorizeRequests()
             .antMatchers("/", "/home").permitAll()
             .antMatchers("/hello").access("hasRole('ROLE_ADMIN')")
             .anyRequest().authenticated()
             .and()
-        .formLogin()
+            .formLogin()
             .loginPage("/login").permitAll()
+            .failureUrl("/login-error.html")
             .and()
             .logout().permitAll()
             .and()
-			.exceptionHandling().accessDeniedPage("/login?error=true");
+			.exceptionHandling().accessDeniedPage("/login?error=true")*/;
 	}
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth
 		    .inMemoryAuthentication()
-		    .withUser("user").password("password1").roles("USER").and()
-		    .withUser("admin").password("password2").roles("ADMIN");
+		    .withUser("jim").password("demo").roles("ADMIN").and()
+            .withUser("bob").password("demo").roles("USER").and()
+            .withUser("ted").password("demo").roles("USER","ADMIN");
 	}
 	
 	/*@Override

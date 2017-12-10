@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>Spring Security Example</title>
+</head>
+<body>
+	<div th:replace="home::logout"></div>
+	<h1>Spring Security Example</h1>
+	<p>
+		This is the <b>user</b> zone
+	</p>
+	<p>
+		Only authenticated users with role <b>USER</b> are allowed to see this
+		page.
+	</p>
+	<p>
+		The current time is: <span th:text="${currentTime}"></span>
+	</p>
+	<p>
+		Click <a th:href="@{/home}">here</a> to go to home.
+	</p>
+</body>
+</html>
