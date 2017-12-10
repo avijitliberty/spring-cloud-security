@@ -69,6 +69,7 @@ public class SecureController {
     @RequestMapping("/error.html")
     public String error(HttpServletRequest request, Model model) {
         model.addAttribute("errorCode", "Error " + request.getAttribute("javax.servlet.error.status_code"));
+        System.out.println("errorCode: " + request.getAttribute("javax.servlet.error.status_code"));
         Throwable throwable = (Throwable) request.getAttribute("javax.servlet.error.exception");
         StringBuilder errorMessage = new StringBuilder();
         errorMessage.append("<ul>");
